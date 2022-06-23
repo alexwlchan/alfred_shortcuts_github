@@ -16,13 +16,13 @@ class AlfredWorkflow:
             "bundleid": "alexwlchan.github-shortcuts",
             "category": "Internet",
             "connections": {},
-            "createdby": "",
+            "createdby": "@alexwlchan",
             "description": "Links to GitHub repos I use regularly",
             "name": "GitHub shortcuts",
             "objects": [],
             "readme": "",
             "uidata": {},
-            "version": "0.0.1",
+            "version": "1.0.0",
             "webaddress": "https://github.com/alexwlchan/github_alfred_shortcuts",
         }
 
