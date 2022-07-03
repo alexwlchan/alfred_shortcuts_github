@@ -4,7 +4,7 @@ This is a script to help me create an [Alfred Workflow] that links to GitHub rep
 
 ![Screenshot of an Alfred workflow with three GitHub links](screenshot.png)
 
-I do this with a custom workflow, rahter than the built-in web search/bookmark features for two reasons:
+I do this with a custom workflow, rather than the built-in web search/bookmark features for two reasons:
 
 *   I want to search a lot of repos this way, and it's easier to write a workflow-building script than point-and-click in the GUI.
 *   I want GitHub shortcuts on both my personal and work computers, but I have no way to automatically sync my Alfred settings between them.
