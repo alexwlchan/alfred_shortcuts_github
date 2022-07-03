@@ -29,11 +29,11 @@ class AlfredWorkflow:
     def add_link(self, url, title, icon, shortcut):
         trigger_object = {
             "config": {
-                "argumenttype": 0 if r"{query}" in url else 2,
+                "argumenttype": 2,
                 "keyword": shortcut,
                 "subtext": "",
                 "text": title,
-                "withspace": (r"{query}" in url),
+                "withspace": False,
             },
             "type": "alfred.workflow.input.keyword",
             "uid": self.uuid("link", shortcut, url),
