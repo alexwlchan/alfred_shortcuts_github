@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from collections.abc import Iterable
 import configparser
 import hashlib
 import os
@@ -7,12 +8,39 @@ import plistlib
 import re
 import shutil
 import tempfile
+import typing
 import uuid
 
 
+class Connection(typing.TypedDict):
+    destinationuid: str
+    modifiers: int
+    modifiersubtext: str
+    vitoclose: bool
+
+
+class UiData(typing.TypedDict):
+    xpos: int
+    ypos: int
+
+
+class Metadata(typing.TypedDict):
+    bundleid: str
+    category: str
+    connections: dict[str, list[Connection]]
+    createdby: str
+    description: str
+    name: str
+    objects: list[dict[str, typing.Any]]
+    readme: str
+    uidata: dict[str, UiData]
+    version: str
+    webaddress: str
+
+
 class AlfredWorkflow:
-    def __init__(self):
-        self.metadata = {
+    def __init__(self) -> None:
+        self.metadata: Metadata = {
             "bundleid": "alexwlchan.github-shortcuts",
             "category": "Internet",
             "connections": {},
@@ -26,7 +54,7 @@ class AlfredWorkflow:
             "webaddress": "https://github.com/alexwlchan/github_alfred_shortcuts",
         }
 
-    def add_link(self, url, title, icon, shortcut):
+    def add_link(self, url: str, title: str, icon: str, shortcut: str) -> None:
         trigger_object = {
             "config": {
                 "argumenttype": 2,
@@ -56,7 +84,7 @@ class AlfredWorkflow:
             trigger_object=trigger_object, action_object=browser_object, icon=icon
         )
 
-    def uuid(self, *args):
+    def uuid(self, *args: str) -> str:
         assert len(args) > 0
         md5 = hashlib.md5()
         for a in args:
@@ -64,14 +92,16 @@ class AlfredWorkflow:
 
         # Quick check we don't have colliding UUIDs.
         if not hasattr(self, "_md5s"):
-            self._md5s = {}
+            self._md5s: dict[str, tuple[str, ...]] = {}
         hex_digest = md5.hexdigest()
         assert hex_digest not in self._md5s, (args, self._md5s[hex_digest])
         self._md5s[hex_digest] = args
 
         return str(uuid.UUID(hex=hex_digest)).upper()
 
-    def _add_trigger_action_pair(self, trigger_object, action_object, icon):
+    def _add_trigger_action_pair(
+        self, trigger_object: typing.Any, action_object: typing.Any, icon: str
+    ) -> None:
         self.metadata["objects"].append(trigger_object)
         self.metadata["objects"].append(action_object)
 
@@ -97,7 +127,7 @@ class AlfredWorkflow:
             },
         ]
 
-    def assemble_package(self, name):
+    def assemble_package(self, name: str) -> None:
         with tempfile.TemporaryDirectory() as tmp_dir:
             shutil.copyfile("github.png", os.path.join(tmp_dir, "Icon.png"))
 
@@ -110,7 +140,13 @@ class AlfredWorkflow:
             shutil.move(f"{name}.alfredworkflow.zip", f"{name}.alfredworkflow")
 
 
-def get_repos(ini_path):
+class Repo(typing.TypedDict):
+    owner: str
+    name: str
+    shortcut: str
+
+
+def get_repos(ini_path: str) -> Iterable[Repo]:
     config = configparser.ConfigParser()
     config.read(ini_path)
 
