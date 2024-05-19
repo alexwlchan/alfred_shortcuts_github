@@ -116,7 +116,6 @@ def get_repos(ini_path):
 
     for owner, repo_list in config["repos"].items():
         for line in repo_list.strip().splitlines():
-
             # Skip empty lines
             if not line.strip():
                 continue
