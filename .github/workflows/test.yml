@@ -1,0 +1,43 @@
+name: Test
+
+on:
+  push:
+    branches:
+    - main
+
+  pull_request:
+    branches:
+    - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: 3.12
+        cache: pip
+        cache_path: dev_requirements.txt
+
+    - name: Install dependencies
+      run: pip install -r dev_requirements.txt
+
+    - name: Run linting
+      run: |
+        black --check .
+
+        # E501 = line too long; anything up to 100-ish is fine in my book
+        # (the "ish" is intentional; see https://www.youtube.com/watch?v=wf-BqAjZb8M)
+        #
+        # E203/W503/W504 = this is where black and flake8 conflict, see https://black.readthedocs.io/en/stable/faq.html#why-are-flake8-s-e203-and-w503-violated
+        flake8 --ignore=E501,E203,W503 --extend-select=W504
+
+    - name: Check types
+      run: mypy *.py
+
+    - name: Build the workflow
+      run: python3 create_workflow.py
