@@ -21,7 +21,7 @@ jobs:
       with:
         python-version: 3.12
         cache: pip
-        cache_dependency_path: dev_requirements.txt
+        cache-dependency-path: dev_requirements.txt
 
     - name: Install dependencies
       run: pip install -r dev_requirements.txt
