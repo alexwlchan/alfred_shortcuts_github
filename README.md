@@ -1,4 +1,4 @@
-# alfred_shortcuts_bookmarks
+# alfred_shortcuts_github
 
 This is a script to help me create an [Alfred Workflow] that links to GitHub repositories that I use regularly.
 
