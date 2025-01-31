@@ -4,7 +4,7 @@ mypy==1.14.1
     # via -r dev_requirements.in
 mypy-extensions==1.0.0
     # via mypy
-ruff==0.9.3
+ruff==0.9.4
     # via -r dev_requirements.in
 typing-extensions==4.11.0
     # via mypy
