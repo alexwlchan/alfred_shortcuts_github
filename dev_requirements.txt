@@ -4,7 +4,7 @@ mypy==1.15.0
     # via -r dev_requirements.in
 mypy-extensions==1.0.0
     # via mypy
-ruff==0.11.10
+ruff==0.11.11
     # via -r dev_requirements.in
 tomli==2.2.1
     # via mypy
