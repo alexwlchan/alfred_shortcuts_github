@@ -6,7 +6,7 @@ mypy-extensions==1.0.0
     # via mypy
 pathspec==0.12.1
     # via mypy
-ruff==0.12.8
+ruff==0.12.9
     # via -r dev_requirements.in
 tomli==2.2.1
     # via mypy
